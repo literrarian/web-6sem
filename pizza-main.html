@@ -41,16 +41,31 @@
                 <img src="assets/сырный борт.png" height="130" width="130" alt="Сырный борт"/>
                 <div class="t">Сырный борт</div>
                 <div>150</div>
+                <div class="topping-quantity-btns">
+                    <input type="image" src="assets/plus.png" width="15" height="15" class="t-quantity-add" alt="hehe" onclick="addTop(this)">
+                    <div class="quantity">0</div>
+                    <input type="image" src="assets/minus.png" width="15" height="15" class="t-quantity-rem" alt="hehe" onclick="remTop(this)">
+                </div>
             </div>
             <div class="topping-item">
                 <img src="assets/Моцарелла.jpg" height="130" width="130" alt="Моцарелла"/>
                 <div class="t">Сливочная моцарелла</div>
                 <div>50</div>
+                <div class="topping-quantity-btns">
+                    <input type="image" src="assets/plus.png" width="15" height="15" class="t-quantity-add" alt="hehe" onclick="addTop(this)" >
+                    <div class="quantity">0</div>
+                    <input type="image" src="assets/minus.png" width="15" height="15" class="t-quantity-rem" alt="hehe" onclick="remTop(this)">
+                </div>
             </div>
             <div class="topping-item">
                 <img src="assets/чеддер.jpg" height="130" width="130" alt="Чеддр"/>
                 <div class="t">Чеддр и пармезан</div>
                 <div>150</div>
+                <div class="topping-quantity-btns">
+                    <input type="image" src="assets/plus.png" width="15" height="15" class="t-quantity-add" alt="hehe" onclick="addTop(this)">
+                    <div class="quantity">0</div>
+                    <input type="image" src="assets/minus.png" width="15" height="15" class="t-quantity-rem" alt="hehe" onclick="remTop(this)">
+                </div>
             </div>
 
         </div>
@@ -142,34 +157,34 @@
         }
     }
     let customPizza;
-    chooseTopping();
     function choosePizza(chosenPizza) {
      customPizza = chosenPizza;
      document.querySelectorAll('.pizza-item').forEach(item => item.style.border = '');
-     document.querySelectorAll('.topping-item').forEach(item => item.style.border = ''); //для новой пиццы убрать обводки с топпингов
+     document.querySelectorAll('.quantity').forEach(item => item.innerText = '0');
      document.getElementById(chosenPizza.getStuffing()).style.border='5px solid orange';
      customPizza.calcCalorie();
      customPizza.calcPrice();
     }
-    function chooseTopping(){
-        const toppingOptions = document.querySelectorAll('.topping-item');
 
-        toppingOptions.forEach(option => {option.addEventListener('click',()=>{
-           option.style.border = '5px solid orange';
-           let toppingName = option.textContent.trim();
-           let t = toppingName.slice(0,-3).trim();
-           customPizza.addTopping(t);
-        })})
-        toppingOptions.forEach(option => {option.addEventListener('dblclick',()=>{
-            option.style.border = '';
+    function remTop(toppingOption){
+        let option = toppingOption.parentNode.previousSibling.previousSibling.previousSibling.previousSibling;
+        let quantity = toppingOption.previousSibling.previousSibling;
+
+        if(+quantity.innerText>0) {
+            console.log(quantity.innerText--)
             let toppingName = option.textContent.trim();
-            let t = toppingName.slice(0,-3).trim();
-            customPizza.removeTopping(t)
-            console.log(customPizza.getToppings())
-
-        })})
-        customPizza.calcCalorie();
-        customPizza.calcPrice()//просчитывает два клика как два одинарных и добавляет в стоимсоть дважды.
+            console.log(toppingName)
+            customPizza.removeTopping(toppingName);
+        }
+    }
+    function addTop(toppingOption)
+    {
+        let option = toppingOption.parentNode.previousSibling.previousSibling.previousSibling.previousSibling;
+        let quantity = toppingOption.nextSibling.nextSibling;
+        console.log(quantity.innerText++)
+        let toppingName = option.textContent.trim();
+        console.log(toppingName)
+        customPizza.addTopping(toppingName);
     }
     function resizePizza(){
         document.getElementById('radioS').checked == '1' ? customPizza.size="Маленькая" : customPizza.size="Большая";
