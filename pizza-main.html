@@ -5,66 +5,70 @@
     <title>Пиццуня!</title>
     <link rel="stylesheet" href="assets/style.sass">
     <link rel="stylesheet" href="assets/style.css">
+
 </head>
 <body>
 <div class="container">
         <div class="pizza-placeholders">
             <div class="pizza-item" id="Маргарита" onclick="choosePizza(new BasePizza('Маргарита','Маленькая'))">
-                <img src="assets/маргарита.png" height="250" width="250" alt="Марго"/>
+                <img src="assets/img/маргарита.png" height="250" width="250" alt="Марго"/>
                 <div class="pizza-name">Маргарита</div>
             </div>
             <div class="pizza-item" id="Пепперони" onclick="choosePizza(new BasePizza('Пепперони','Маленькая'))">
-                <img src="assets/pepperoni.png" height="250" width="250" alt="Пепперони"/>
+                <img src="assets/img/pepperoni.png" height="250" width="250" alt="Пепперони"/>
                 <div class="pizza-name">Пепперони</div>
             </div>
             <div class="pizza-item" id="Баварская" onclick="choosePizza(new BasePizza('Баварская','Маленькая'))">
-                <img src="assets/баварская.png" height="250" width="250" alt="Баварская"/>
+                <img src="assets/img/баварская.png" height="250" width="250" alt="Баварская"/>
                 <div class="pizza-name">Баварская</div>
             </div>
         </div>
     <div class="order-column">
+        <p>Выберите размер</p>
         <div class="size-options">
-            <p>Выберите размер</p>
-            <div class="radio">
-                <input type="radio" value="None" id="radioS" name="radio" onclick="resizePizza()" checked />
-                <label for="radioS">Маленькая</label>
-            </div>
-            <div class="radio">
-                <input type="radio" value="None" id="radioL" name="radio" onclick="resizePizza()"/>
-                <label for="radioL">Большая</label>
+
+            <input type="radio" value="None" id="radioS" name="radio" onclick="resizePizza()" checked />
+            <input type="radio" value="None" id="radioL" name="radio" onclick="resizePizza()"/>
+            <label for="radioS">Маленькая</label>
+            <label for="radioL">Большая</label>
+            <div class="switch-wrapper">
+                <div class="switch">
+                    <div>Маленькая</div>
+                    <div>Большая</div>
+                </div>
             </div>
         </div>
         <p>Добавить по вкусу</p>
         <div class="topping-options">
 
             <div class="topping-item">
-                <img src="assets/сырный борт.png" height="130" width="130" alt="Сырный борт"/>
+                <img src="assets/img/сырный%20борт.png" height="130" width="130" alt="Сырный борт"/>
                 <div class="t">Сырный борт</div>
                 <div>150</div>
                 <div class="topping-quantity-btns">
-                    <input type="image" src="assets/plus.png" width="15" height="15" class="t-quantity-add" alt="hehe" onclick="addTop(this)">
+                    <input type="image" src="assets/img/minus.png" width="15" height="15" class="t-quantity-rem" alt="hehe" onclick="remTop(this)">
                     <div class="quantity">0</div>
-                    <input type="image" src="assets/minus.png" width="15" height="15" class="t-quantity-rem" alt="hehe" onclick="remTop(this)">
+                    <input type="image" src="assets/img/plus.png" width="15" height="15" class="t-quantity-add" alt="hehe" onclick="addTop(this)">
                 </div>
             </div>
             <div class="topping-item">
-                <img src="assets/Моцарелла.jpg" height="130" width="130" alt="Моцарелла"/>
+                <img src="assets/img/Моцарелла.jpg" height="130" width="130" alt="Моцарелла"/>
                 <div class="t">Сливочная моцарелла</div>
                 <div>50</div>
                 <div class="topping-quantity-btns">
-                    <input type="image" src="assets/plus.png" width="15" height="15" class="t-quantity-add" alt="hehe" onclick="addTop(this)" >
+                    <input type="image" src="assets/img/minus.png" width="15" height="15" class="t-quantity-rem" alt="hehe" onclick="remTop(this)">
                     <div class="quantity">0</div>
-                    <input type="image" src="assets/minus.png" width="15" height="15" class="t-quantity-rem" alt="hehe" onclick="remTop(this)">
+                    <input type="image" src="assets/img/plus.png" width="15" height="15" class="t-quantity-add" alt="hehe" onclick="addTop(this)" >
                 </div>
             </div>
             <div class="topping-item">
-                <img src="assets/чеддер.jpg" height="130" width="130" alt="Чеддр"/>
+                <img src="assets/img/чеддер.jpg" height="130" width="130" alt="Чеддр"/>
                 <div class="t">Чеддр и пармезан</div>
                 <div>150</div>
                 <div class="topping-quantity-btns">
-                    <input type="image" src="assets/plus.png" width="15" height="15" class="t-quantity-add" alt="hehe" onclick="addTop(this)">
+                    <input type="image" src="assets/img/minus.png" width="15" height="15" class="t-quantity-rem" alt="hehe" onclick="remTop(this)">
                     <div class="quantity">0</div>
-                    <input type="image" src="assets/minus.png" width="15" height="15" class="t-quantity-rem" alt="hehe" onclick="remTop(this)">
+                    <input type="image" src="assets/img/plus.png" width="15" height="15" class="t-quantity-add" alt="hehe" onclick="addTop(this)">
                 </div>
             </div>
 
@@ -72,130 +76,7 @@
         <button id="add-2-cart" class="button">Добавить в корзину за <span id="btn-total"></span></button>
     </div>
 </div>
-<script>
-    //[0]деньги [1]каллории
-    pizzaSpecs = {
-        "Маргарита": [500,300],
-        "Пепперони": [800,400],
-        "Баварская" : [700,450],
-    }
-    sizeSpecs = {
-        "Большая"  : [200,200],
-        "Маленькая": [100,100],
-    }
-    toppingSpecs = {
-        "Сырный борт": [150,50],
-        "Сливочная моцарелла": [50,20],
-        "Чеддр и пармезан": [150,50]
-    }
-
-    class BasePizza{
-        constructor(name,size,topping,price,calorie) {
-
-            this.name = name;
-            this.size = size;
-            this.topping = topping ? topping: [];
-            this.price = 0;
-            this.calorie = 0;
-        }
-        getPrice(){
-            return this.price;
-        }
-        getCalorie(){
-            return this.calorie;
-        }
-        addTopping(newTopping){
-            this.topping.push(newTopping);
-            this.calcCalorie();
-            this.calcPrice();
-        }
-        removeTopping(oldTopping){
-            this.calcCalorie();
-            this.calcPrice();
-            let toppingPrice = oldTopping[0];
-            let toppingCalorie = oldTopping[1];
-            this.size == "Большая" ? this.price-=toppingPrice*2 : this.price-=toppingPrice;
-            this.calorie-=toppingCalorie;
-            let index = this.topping.findIndex((top) => top===oldTopping);
-            this.topping.splice(index,1);
-            this.calcCalorie();
-            this.calcPrice();
-
-        }
-
-        calcPrice(){
-            this.price = 0;
-            this.price += pizzaSpecs[this.name][0];
-            this.price += sizeSpecs[this.size][0];
-            let size = this.size;
-
-            this.topping.forEach((item)=> {
-                size == "Большая" ? this.price+=toppingSpecs[item][0]*2 : this.price+=toppingSpecs[item][0];
-            })
-
-            document.getElementById('add-2-cart').textContent = `${customPizza.getPrice()} руб., (${customPizza.getCalorie()} кКал)`
-        }
-        calcCalorie(){
-            this.calorie = 0;
-            this.calorie += pizzaSpecs[this.name][1];
-            this.calorie += sizeSpecs[this.size][1];
-            let size = this.size;
-
-            this.topping.forEach((item)=> {
-                size == "Большая" ? this.calorie+=toppingSpecs[item][1]*2 : this.calorie+=toppingSpecs[item][1];
-            })
-            document.getElementById('add-2-cart').textContent = `${customPizza.getPrice()} руб., (${customPizza.getCalorie()} кКал)`;
-        }
-        getToppings(){
-            return this.topping;
-        }
-        getSize() {
-            return this.size;
-        }
-        getStuffing() {
-            return this.name;
-        }
-    }
-    let customPizza;
-    function choosePizza(chosenPizza) {
-     customPizza = chosenPizza;
-     document.querySelectorAll('.pizza-item').forEach(item => item.style.border = '');
-     document.querySelectorAll('.quantity').forEach(item => item.innerText = '0');
-     document.getElementById(chosenPizza.getStuffing()).style.border='5px solid orange';
-     customPizza.calcCalorie();
-     customPizza.calcPrice();
-    }
-
-    function remTop(toppingOption){
-        let option = toppingOption.parentNode.previousSibling.previousSibling.previousSibling.previousSibling;
-        let quantity = toppingOption.previousSibling.previousSibling;
-
-        if(+quantity.innerText>0) {
-            console.log(quantity.innerText--)
-            let toppingName = option.textContent.trim();
-            console.log(toppingName)
-            customPizza.removeTopping(toppingName);
-        }
-    }
-    function addTop(toppingOption)
-    {
-        let option = toppingOption.parentNode.previousSibling.previousSibling.previousSibling.previousSibling;
-        let quantity = toppingOption.nextSibling.nextSibling;
-        console.log(quantity.innerText++)
-        let toppingName = option.textContent.trim();
-        console.log(toppingName)
-        customPizza.addTopping(toppingName);
-    }
-    function resizePizza(){
-        document.getElementById('radioS').checked == '1' ? customPizza.size="Маленькая" : customPizza.size="Большая";
-
-        customPizza.calcCalorie();
-        customPizza.calcPrice();
-    }
-
-
-
-</script>
+<script src="pizza-main.js"></script>
 
 </body>
 </html>
